@@ -1,0 +1,122 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<CertVault.Models.DBModels.Certificate>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+@using (Html.BeginForm("Index", "Certificates"))
+{
+    <p>
+        Please enter certificate Number: @Html.TextBox("CertNumber", null,new {@class = "form-control",placeholder = "12345678" }) <input type="submit" class="btn btn-default" value="Filter" /><br />
+    </p>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.First().CertificateNumber)
+        </th>
+        <th>@Html.DisplayNameFor(model => model.First().SymbolIsin)</th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Volume)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().CreatedAt)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.First().ApprovedAt)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.ApprovedBy)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.First().WithdrawRequestAt)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.WithdrawRequestBy)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.First().WithdrawApprovedAt)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.WithdrawApprovedBy)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.First().UpdatedAt)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.Client)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClientId)
+        </th>*@
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>@Html.DisplayFor(modelItem => item.CertificateNumber)</td>
+        <td>@Html.DisplayFor(modelItem => item.SymbolIsin)</td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Volume)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedAt)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.CreatedBy)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.ApprovedAt)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.ApprovedBy)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.WithdrawRequestAt)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.WithdrawRequestBy)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.WithdrawApprovedAt)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.WithdrawApprovedBy)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.UpdatedAt)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.Client)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClientId)
+        </td>*@
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.CertificateNumber, id2 = item.SymbolIsin,id3 = item.MemberID}) |
+            @Html.ActionLink("Details", "Details", new { id = item.CertificateNumber, id2 = item.SymbolIsin, id3 = item.MemberID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.CertificateNumber, id2 = item.SymbolIsin, id3 = item.MemberID })
+        </td>
+    </tr>
+}
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, CertNumber = Request.QueryString["CertNumber"]}),new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayPageCountAndCurrentLocation = true } )
+</table>

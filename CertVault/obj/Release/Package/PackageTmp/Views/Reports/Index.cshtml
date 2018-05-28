@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+@using (Html.BeginForm("DownloadJCSDCertificateVaultReport", "Reports"))
+{
+    <p>
+        Enter Cert Number: @Html.TextBox("CertificateNumber",null, new { @class = "form-control" } )
+        Enter ISIN: @Html.TextBox("Symbol", null, new { @class = "form-control" })
+        @Html.DropDownList("ClientName", (IEnumerable<SelectListItem>)ViewBag.Client, "select Client", htmlAttributes: new { @class = "form-control" })
+        @Html.DropDownList("Status", (IEnumerable<SelectListItem>)ViewBag.Status, "Select Status", htmlAttributes: new { @class = "form-control" })
+        @Html.DropDownList("VaultName", (IEnumerable<SelectListItem>)ViewBag.Vaults, "Select Vault", htmlAttributes: new { @class = "form-control" })
+        <input type="submit" value="Download Report" />
+    </p>
+
+
+}
